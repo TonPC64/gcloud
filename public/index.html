@@ -1,0 +1,107 @@
+<!doctype html>
+<html ng-app="kaikongApp">
+
+<head>
+    <title>KaiKong</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://code.jquery.com/jquery-2.2.3.js" integrity="sha256-laXWtGydpwqJ8JA+X9x2miwmaiKhn8tVmOVEigRNtP4=" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+    <script src="app.js"></script>
+</head>
+
+
+<body ng-controller="kaikongCon">
+    <nav style="margin-bottom:10px;" class="z-depth-0">
+        <div class="nav-wrapper light-blue darken-1 ">
+            <a href="#" class="brand-logo center">Kaikong</a>
+        </div>
+
+    </nav>
+
+    <div class="row">
+        <div class="container">
+            <div class="col s12 m12 l12">
+                <div class="col s4 m4 l4 right-align " style="margin-top:12px;">
+
+
+                    <div class="col s2 m2 l2 " style="margin-left:90px;"><a class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons" onclick="$('#modal1').openModal();">add</i></a>&nbsp;</div>
+                    <div class="col s2 m2 l2 right-align " style="margin-left:100px;"> ค้นหา</div>
+
+
+                </div>
+
+
+                <div class="col s4 m4 l4">
+                    <input type="text" name="seach">
+                </div>
+                <div class="col s4 m4 l4"></div>
+
+            </div>
+            <div class="col s2 m2 l2">&nbsp;</div>
+            <div class="col s8 m8 l8 center-align">
+                <table class="striped">
+                    <thead>
+                        <tr>
+                            <th data-field="id">Barcode</th>
+                            <th data-field="name">Name</th>
+                            <th data-field="price">Price</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr ng-repeat="pro in product">
+                            <td>{{pro.code}}</td>
+                            <td>{{pro.name}}</td>
+                            <td>{{pro.price}}</td>
+                            <td><a href="" ng-click="edit($index)"><i class="material-icons">mode_edit</i></a></td>
+                            <td><a href="" ng-click="delete($index)"><i class="material-icons">delete</i></a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col s2 m2 l2">&nbsp;</div>
+        </div>
+    </div>
+    <!-- Modal Trigger -->
+
+
+    <!-- Modal Structure -->
+    <div id="modal1" class="modal center">
+        <div class="modal-content">
+            <h4>Add Product</h4>
+            <form ng-submit="addProduct()">
+                <div class="row">
+                    <div class="col s3 m3 l3 right-align" style="margin-top:12px;">
+                        <b>Barcode</b>
+                    </div>
+                    <div class="col s9 m9 l9">
+                        <input type="text" ng-model="barcode" placeholder="Barcode">
+                    </div>
+                    <div class="col s3 m3 l3 right-align" style="margin-top:12px;">
+                        <b>Product name</b>
+                    </div>
+                    <div class="col s9 m9 l9">
+                        <input type="text" ng-model="name" placeholder="Product name">
+                    </div>
+                    <div class="col s3 m3 l3 right-align" style="margin-top:12px;">
+                        <b>Price</b>
+                    </div>
+                    <div class="col s9 m9 l9">
+                        <input type="text" ng-model="price" placeholder="Price">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-default">Add</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

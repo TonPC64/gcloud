@@ -1,0 +1,19 @@
+{
+  "name": "gcloud",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "dependencies": {
+    "body-parser": "^1.15.1",
+    "express": "^4.13.4",
+    "mongoose": "^4.4.15"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node app.js",
+    "monitor": "nodemon app.js",
+    "deploy": "gcloud preview app deploy"
+  },
+  "author": "",
+  "license": "ISC"
+}
