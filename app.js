@@ -37,7 +37,7 @@ app.post('/data', jsonParser, function (req, res) {
     if (err) {
       console.log(err)
     }
-    res.send('success')
+    res.send(insert)
   })
 })
 

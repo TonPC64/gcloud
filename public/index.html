@@ -1,107 +1,171 @@
 <!doctype html>
 <html ng-app="kaikongApp">
 
-<head>
-    <title>KaiKong</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://code.jquery.com/jquery-2.2.3.js" integrity="sha256-laXWtGydpwqJ8JA+X9x2miwmaiKhn8tVmOVEigRNtP4=" crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
-    <!-- Compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
-    <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <head>
+        <title>KaiKong</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <script src="https://code.jquery.com/jquery-2.2.3.js" integrity="sha256-laXWtGydpwqJ8JA+X9x2miwmaiKhn8tVmOVEigRNtP4=" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+        <!-- Compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
+        <!-- Compiled and minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
+        <script src="app.js"></script>
+        <style media="screen">
+            .blur {
+                -webkit-filter: blur(1px);
+                opacity: 0.75;
+            }
 
-    <script src="app.js"></script>
-</head>
+            .float {
+                position: absolute;
+                top: 35px;
+                right: 0;
+                z-index: 100;
+            }
 
+            a.disabled {
+                pointer-events: none;
+                cursor: default;
+            }
 
-<body ng-controller="kaikongCon">
-    <nav style="margin-bottom:10px;" class="z-depth-0">
-        <div class="nav-wrapper light-blue darken-1 ">
-            <a href="#" class="brand-logo center">Kaikong</a>
-        </div>
+        </style>
+    </head>
 
-    </nav>
-
-    <div class="row">
-        <div class="container">
-            <div class="col s12 m12 l12">
-                <div class="col s4 m4 l4 right-align " style="margin-top:12px;">
-
-
-                    <div class="col s2 m2 l2 " style="margin-left:90px;"><a class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons" onclick="$('#modal1').openModal();">add</i></a>&nbsp;</div>
-                    <div class="col s2 m2 l2 right-align " style="margin-left:100px;"> ค้นหา</div>
-
-
-                </div>
-
-
-                <div class="col s4 m4 l4">
-                    <input type="text" name="seach">
-                </div>
-                <div class="col s4 m4 l4"></div>
-
+    <body ng-controller="kaikongCon">
+        <nav style="margin-bottom:10px;" class="z-depth-0">
+            <div class="nav-wrapper light-blue darken-1 ">
+                <a href="#" class="brand-logo center">KaiKong</a>
             </div>
-            <div class="col s2 m2 l2">&nbsp;</div>
-            <div class="col s8 m8 l8 center-align">
-                <table class="striped">
-                    <thead>
-                        <tr>
-                            <th data-field="id">Barcode</th>
-                            <th data-field="name">Name</th>
-                            <th data-field="price">Price</th>
-                        </tr>
-                    </thead>
 
-                    <tbody>
-                        <tr ng-repeat="pro in product">
-                            <td>{{pro.code}}</td>
-                            <td>{{pro.name}}</td>
-                            <td>{{pro.price}}</td>
-                            <td><a href="" ng-click="edit($index)"><i class="material-icons">mode_edit</i></a></td>
-                            <td><a href="" ng-click="delete($index)"><i class="material-icons">delete</i></a></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="col s2 m2 l2">&nbsp;</div>
+        </nav>
+        <div class=" container float">
+            <a class="btn-floating btn-large waves-effect waves-light red">
+                <i class="material-icons" onclick="$('#modal1').openModal();">add</i>
+            </a>
         </div>
-    </div>
-    <!-- Modal Trigger -->
 
+        <div class="row">
 
-    <!-- Modal Structure -->
-    <div id="modal1" class="modal center">
-        <div class="modal-content">
-            <h4>Add Product</h4>
-            <form ng-submit="addProduct()">
-                <div class="row">
-                    <div class="col s3 m3 l3 right-align" style="margin-top:12px;">
-                        <b>Barcode</b>
+            <div class="container">
+                <div class="col s12 m12 l12">
+                    <div class="col s3 m3 l3 right-align " style="margin-top:12px;">
+
+                        <div class="col s2 m2 l2" style="margin-left:90px;">&nbsp;</div>
+
                     </div>
+
                     <div class="col s9 m9 l9">
-                        <input type="text" ng-model="barcode" placeholder="Barcode">
+                        <div class="input-field col s6">
+                            <i class="material-icons prefix">search</i>
+                            <input id="icon_prefix" type="text" ng-model="searchText" class="validate">
+                            <label for="icon_prefix">ค้นหา</label>
+                        </div>
                     </div>
-                    <div class="col s3 m3 l3 right-align" style="margin-top:12px;">
-                        <b>Product name</b>
-                    </div>
-                    <div class="col s9 m9 l9">
-                        <input type="text" ng-model="name" placeholder="Product name">
-                    </div>
-                    <div class="col s3 m3 l3 right-align" style="margin-top:12px;">
-                        <b>Price</b>
-                    </div>
-                    <div class="col s9 m9 l9">
-                        <input type="text" ng-model="price" placeholder="Price">
-                    </div>
+
                 </div>
+                <div class="col s2 m2 l2">&nbsp;</div>
+                <div class="col s8 m8 l8 center-align">
+                    <table class="highlight">
+                        <thead>
+                            <tr>
+                                <th data-field="id" width="30%">Barcode</th>
+                                <th data-field="name" width="30%">Name</th>
+                                <th data-field="price" width="30%">Price</th>
+                                <th data-field="edit" width="5%">Edit</th>
+                                <th data-field="delete" width="5%">Delete</th>
+                            </tr>
+                        </thead>
 
-                <button type="submit" class="btn btn-default">Add</button>
-            </form>
+                        <tbody ng-repeat="pro in product | filter:searchText">
+
+                            <tr ng-hide="editShow === $index" id="tr" class="">
+                                <td>{{pro.code}}</td>
+                                <td>{{pro.name}}</td>
+                                <td>{{pro.price}}</td>
+                                <td>
+                                    <a href="" ng-click="edit($index)" class="blue-text text-darken-3 edit_a">
+                                        <i class="material-icons">mode_edit</i>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="" ng-click="bfdelete($index,pro._id)" class="red-text text-accent-4 edit_d">
+                                        <i class="material-icons">delete</i>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr ng-show="editShow === $index">
+                                <td><input type="text" ng-model="pro.code" placeholder="Barcode"></td>
+                                <td><input type="text" ng-model="pro.name" placeholder="Product name"></td>
+                                <td><input type="text" ng-model="pro.price" placeholder="Price"></td>
+                                <td>
+                                    <a href="" ng-click="yes($index,pro._id)" class="green-text text-darken-3">
+                                        <i class="material-icons">done</i>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="" ng-click="no($index)" class="red-text text-accent-4">
+                                        <i class="material-icons">cancel</i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col s2 m2 l2">&nbsp;</div>
+            </div>
         </div>
-    </div>
-</body>
+        <!-- Modal Trigger -->
+
+        <!-- Modal Structure -->
+        <div id="modal1" class="modal center">
+            <div class="modal-content">
+                <h4>Add Product</h4>
+                <form ng-submit="addProduct(barcode,name,price)">
+                    <div class="row">
+                        <div class="col s3 m3 l3 right-align" style="margin-top:12px;">
+                            <b>Barcode</b>
+                        </div>
+                        <div class="col s9 m9 l9">
+                            <input type="text" ng-model="barcode" placeholder="Barcode" required>
+                        </div>
+                        <div class="col s3 m3 l3 right-align" style="margin-top:12px;">
+                            <b>Product name</b>
+                        </div>
+                        <div class="col s9 m9 l9">
+                            <input type="text" ng-model="name" placeholder="Product name" required>
+                        </div>
+                        <div class="col s3 m3 l3 right-align" style="margin-top:12px;">
+                            <b>Price</b>
+                        </div>
+                        <div class="col s9 m9 l9">
+                            <input type="text" ng-model="price" placeholder="Price" required>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-default">Add</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Modal Structure -->
+        <div id="modal2" class="modal modal-fixed-footer center" style="width:400px;height:180px;">
+            <div class="modal-content">
+                <h4>ยืนยันการลบรายการ</h4>
+                <p>
+                    {{product[dindex].code}}
+                    :
+                    {{product[dindex].name}}
+                </p>
+            </div>
+            <div class="modal-footer">
+              <a href="" onclick="$('#modal2').closeModal();" class="btn red right">ยกเลิก</a>
+              <a href="" ng-click="delete(dindex,did)" class="btn left">ตกลง</a>
+            </div>
+        </div>
+
+    </body>
 
 </html>
